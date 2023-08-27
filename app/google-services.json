@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "702653429263",
+    "firebase_url": "https://marathi-quotes-e34c0-default-rtdb.firebaseio.com",
+    "project_id": "marathi-quotes-e34c0",
+    "storage_bucket": "marathi-quotes-e34c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702653429263:android:5a8aef7e888b2e7f0f957a",
+        "android_client_info": {
+          "package_name": "com.nilscreation.marathiquotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702653429263-k5bp17s84eqieb301bebssj5com7l18c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2NXeFloFkHIxuO3BlleBtUMLh97uW52I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702653429263-k5bp17s84eqieb301bebssj5com7l18c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
