@@ -41,7 +41,6 @@ public class MainFragment extends Fragment {
     TextView title;
     private RecyclerView recyclerView;
     private List<QuoteModel> factslist;
-    Context context;
     String category;
 
     public MainFragment() {

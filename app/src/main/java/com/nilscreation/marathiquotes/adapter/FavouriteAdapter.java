@@ -40,9 +40,9 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.nilscreation.marathiquotes.Quote;
-import com.nilscreation.marathiquotes.service.MyDBHelper;
 import com.nilscreation.marathiquotes.R;
 import com.nilscreation.marathiquotes.model.QuoteModel;
+import com.nilscreation.marathiquotes.service.MyDBHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,10 +51,10 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Random;
 
-public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder> {
+public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MovieHolder> {
 
     Context context;
-    List<QuoteModel> quotelist;
+    List<String> quotelist;
     FragmentActivity activity;
     private InterstitialAd mInterstitialAd;
     private int mCounter = 0;
@@ -62,7 +62,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
     String finalQuote, mTitle;
     MyDBHelper myDBHelper;
 
-    public QuoteAdapter(Context context, List<QuoteModel> quotelist, FragmentActivity activity) {
+    public FavouriteAdapter(Context context, List<String> quotelist, FragmentActivity activity) {
         this.context = context;
         this.quotelist = quotelist;
         this.activity = activity;
@@ -80,10 +80,10 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
 
         Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fade_in);
 
-        QuoteModel quoteModel = quotelist.get(position);
+        String quote = quotelist.get(position);
 
 //        shree_dev(quoteModel.getTitle());
-        finalQuote = Quote.quote(quoteModel.getTitle());
+        finalQuote = Quote.quote(quote);
 
 //        String[] colors = {
 //                "#FF0000", "#009AFA", "#FE857A", "#B95079", "#F31349", "#FD4311", "#A2A2AA", "#1D6BB6",
@@ -95,10 +95,12 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
         Typeface typeface = ResourcesCompat.getFont(holder.title.getContext(), R.font.marathi240);
 //        holder.title.setTypeface(typeface);
 
+        holder.favourite.setImageResource(R.drawable.ic_heart2);
+
         holder.relativeLayout.setBackgroundColor(Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256)));
         //   holder.relativeLayout.setBackgroundColor(Color.parseColor(colors[r.nextInt(colors.length)]));
 
-        String ogText = quoteModel.getTitle();
+        String ogText = quote;
 //        readData();
 
         holder.itemView.startAnimation(animation);
@@ -114,14 +116,12 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
             public void onClick(View view) {
 
                 myDBHelper = new MyDBHelper(holder.favourite.getContext());
-                mTitle = quoteModel.getTitle();
+                mTitle = quote;
 
-                myDBHelper.deleteandAdd(mTitle);
-//                holder.favourite.setImageResource(R.drawable.ic_heart2);
-//                ImageViewCompat.setImageTintList(holder.favourite, ColorStateList.valueOf
-//                        (ContextCompat.getColor(holder.favourite.getContext(), R.color.red)));
-                Toast.makeText(holder.favourite.getContext(), "Added to Favourite", Toast.LENGTH_SHORT).show();
-
+                myDBHelper.deleteData(mTitle);
+                Toast.makeText(holder.likeButton.getContext(), "Removed from Favourite", Toast.LENGTH_SHORT).show();
+                quotelist.remove(quote);
+                notifyDataSetChanged();
 
             }
         });

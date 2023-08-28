@@ -15,10 +15,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MyDatabase";
     private static final int DATABASE_VERSION = 1;
     private static final String MY_TABLE = "Table1";
-    private static final String KEY_URL = "url";
-    private static final String KEY_CATEGORY = "category";
     private static final String KEY_TITLE = "title";
-    private static final String KEY_TEXT = "text";
 
     Context context;
 
@@ -53,18 +50,18 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<QuoteModel> readData() {
+    public ArrayList<String> readData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         //Cursor cursor = db.rawQuery("SELECT * FROM " + MY_TABLE + " ORDER BY " + KEY_TITLE + " DESC", null);
         Cursor cursor = db.rawQuery("SELECT * FROM " + MY_TABLE, null);
 
-        ArrayList<QuoteModel> facts = new ArrayList<>();
+        ArrayList<String> facts = new ArrayList<>();
 
         while (cursor.moveToNext()) {
 
-            facts.add(new QuoteModel(cursor.getString(0), cursor.getString(1)));
+            facts.add(cursor.getString(0));
         }
         return facts;
     }
