@@ -34,7 +34,6 @@ public class EditActivity extends AppCompatActivity {
     Button submit, clear;
     long itemNumber;
     DataModel dataModel;
-
     DatabaseReference reference;
 
     @Override
@@ -136,8 +135,9 @@ public class EditActivity extends AppCompatActivity {
 
     private void updateData() {
         dataModel = new DataModel(mCategory, mQuote);
-
-        reference.child("Quotes").child(String.valueOf("Q" + (itemNumber + 1))).setValue(dataModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+        int numberDigit = 4;
+        String titleFormat = String.format("%0" + numberDigit + "d", (itemNumber + 1));
+        reference.child("Quotes").child(titleFormat).setValue(dataModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

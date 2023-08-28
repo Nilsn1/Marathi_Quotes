@@ -43,6 +43,7 @@ public class MainFragment extends Fragment {
     private List<QuoteModel> factslist;
     Context context;
     String category;
+
     public MainFragment() {
     }
 
@@ -54,7 +55,11 @@ public class MainFragment extends Fragment {
         title = view.findViewById(R.id.title);
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         title = view.findViewById(R.id.title);
         title.setOnLongClickListener(new View.OnLongClickListener() {
@@ -88,7 +93,7 @@ public class MainFragment extends Fragment {
 
     private void fetchData() {
 
-        QuoteAdapter adapter = new QuoteAdapter(context, factslist, getActivity());
+        QuoteAdapter adapter = new QuoteAdapter(getContext(), factslist, getActivity());
         recyclerView.setAdapter(adapter);
 //        AdmobNativeAdAdapter admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with("ca-app-pub-9137303962163689/7340301951", adapter, "medium").adItemInterval(10).build();
 //        recyclerView.setAdapter(admobNativeAdAdapter);
@@ -97,7 +102,7 @@ public class MainFragment extends Fragment {
         databaseReference.child("Quotes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                factslist.clear();
+                factslist.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     QuoteModel quoteModel = dataSnapshot.getValue(QuoteModel.class);
 

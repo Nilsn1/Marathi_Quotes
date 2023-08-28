@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -31,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +61,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
     private InterstitialAd mInterstitialAd;
     private int mCounter = 0;
     Random r = new Random();
-    String finalQuote, mTitle;
+    String finalQuote, mTitle, copyQuote;
     MyDBHelper myDBHelper;
 
     public QuoteAdapter(Context context, List<QuoteModel> quotelist, FragmentActivity activity) {
@@ -83,6 +85,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
         QuoteModel quoteModel = quotelist.get(position);
 
 //        shree_dev(quoteModel.getTitle());
+        copyQuote = quoteModel.getTitle();
         finalQuote = Quote.quote(quoteModel.getTitle());
 
 //        String[] colors = {
@@ -182,17 +185,57 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
             public void onClick(View v) {
 
                 //Replace your own action here
-                String appUrl = text + " For More Health Facts & Tips download the app now " + "https://play.google.com/store/apps/details?id=" + holder.shareButton.getContext().getPackageName();
+//                String appUrl = text + " For More Health Facts & Tips download the app now " + "https://play.google.com/store/apps/details?id=" + holder.shareButton.getContext().getPackageName();
+//
+//                Intent sharing = new Intent(Intent.ACTION_SEND);
+//                sharing.setType("text/plain");
+//                sharing.putExtra(Intent.EXTRA_SUBJECT, "Download Now");
+//                sharing.putExtra(Intent.EXTRA_TEXT, appUrl);
+//                holder.shareButton.getContext().startActivity(Intent.createChooser(sharing, "Share via"));
 
-                Intent sharing = new Intent(Intent.ACTION_SEND);
-                sharing.setType("text/plain");
-                sharing.putExtra(Intent.EXTRA_SUBJECT, "Download Now");
-                sharing.putExtra(Intent.EXTRA_TEXT, appUrl);
-                holder.shareButton.getContext().startActivity(Intent.createChooser(sharing, "Share via"));
-
+                Bitmap bitmap = Bitmap.createBitmap(holder.relativeLayout.getWidth(), holder.relativeLayout.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                holder.relativeLayout.draw(canvas);
+                shareImageandText(bitmap);
             }
         });
 
+    }
+
+    private void shareImageandText(Bitmap bitmap) {
+        Uri uri = getmageToShare(bitmap);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        intent.putExtra(Intent.EXTRA_TEXT, copyQuote
+                + "\n\n" +
+                "For more interesting facts download the app now." +
+                "\nhttps://play.google.com/store/apps/details?id=" + context.getApplicationContext().getPackageName());
+
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+
+        intent.setType("image/png");
+
+        context.startActivity(Intent.createChooser(intent, "Share Via"));
+    }
+
+    // Retrieving the url to share
+    private Uri getmageToShare(Bitmap bitmap) {
+        File imagefolder = new File(context.getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imagefolder.mkdirs();
+            File file = new File(imagefolder, "fact.jpg");
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            uri = FileProvider.getUriForFile(context, "com.nilscreation.marathiquotes", file);
+        } catch (Exception e) {
+            Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return uri;
     }
 
     private void saveImageToGallery(Bitmap imageBitmap) {
