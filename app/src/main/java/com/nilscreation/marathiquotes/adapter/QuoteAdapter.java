@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +59,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
     private InterstitialAd mInterstitialAd;
     private int mCounter = 0;
     Random r = new Random();
-    String finalQuote, mTitle, copyQuote;
+    String finalQuote, mTitle;
     MyDBHelper myDBHelper;
 
     public QuoteAdapter(Context context, List<QuoteModel> quotelist, FragmentActivity activity) {
@@ -85,7 +83,6 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
         QuoteModel quoteModel = quotelist.get(position);
 
 //        shree_dev(quoteModel.getTitle());
-        copyQuote = quoteModel.getTitle();
         finalQuote = Quote.quote(quoteModel.getTitle());
 
 //        String[] colors = {
@@ -101,7 +98,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
         holder.relativeLayout.setBackgroundColor(Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256)));
         //   holder.relativeLayout.setBackgroundColor(Color.parseColor(colors[r.nextInt(colors.length)]));
 
-        String text = quoteModel.getTitle();
+        String ogText = quoteModel.getTitle();
 //        readData();
 
         holder.itemView.startAnimation(animation);
@@ -151,7 +148,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
             public void onClick(View v) {
 
                 ClipboardManager clipboardManager = (ClipboardManager) holder.copyButton.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("simple text", text);
+                ClipData clipData = ClipData.newPlainText("simple text", ogText);
                 clipboardManager.setPrimaryClip(clipData);
 
                 Toast.makeText(holder.copyButton.getContext(), "Text copied", Toast.LENGTH_SHORT).show();
@@ -192,23 +189,22 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
 //                sharing.putExtra(Intent.EXTRA_SUBJECT, "Download Now");
 //                sharing.putExtra(Intent.EXTRA_TEXT, appUrl);
 //                holder.shareButton.getContext().startActivity(Intent.createChooser(sharing, "Share via"));
-
                 Bitmap bitmap = Bitmap.createBitmap(holder.relativeLayout.getWidth(), holder.relativeLayout.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 holder.relativeLayout.draw(canvas);
-                shareImageandText(bitmap);
+                shareImageandText(bitmap, ogText);
             }
         });
 
     }
 
-    private void shareImageandText(Bitmap bitmap) {
+    private void shareImageandText(Bitmap bitmap, String ogText) {
         Uri uri = getmageToShare(bitmap);
         Intent intent = new Intent(Intent.ACTION_SEND);
 
         intent.putExtra(Intent.EXTRA_STREAM, uri);
 
-        intent.putExtra(Intent.EXTRA_TEXT, copyQuote
+        intent.putExtra(Intent.EXTRA_TEXT, ogText
                 + "\n\n" +
                 "For more interesting facts download the app now." +
                 "\nhttps://play.google.com/store/apps/details?id=" + context.getApplicationContext().getPackageName());
@@ -226,7 +222,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
         Uri uri = null;
         try {
             imagefolder.mkdirs();
-            File file = new File(imagefolder, "fact.jpg");
+            File file = new File(imagefolder, "MarathiStatus.jpg");
             FileOutputStream outputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.flush();
@@ -240,7 +236,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
 
     private void saveImageToGallery(Bitmap imageBitmap) {
         String savedImagePath;
-        String imageFileName = "Photo_" + System.currentTimeMillis() + ".jpg";
+        String imageFileName = "MarathiStatus_" + System.currentTimeMillis() + ".jpg";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ContentValues values = new ContentValues();

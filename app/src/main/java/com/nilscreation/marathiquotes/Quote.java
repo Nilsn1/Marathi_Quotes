@@ -26,7 +26,8 @@ public class Quote {
         //MY CODE
 
         str = str.replace(str2, str2).replace("च्छ", "ÀN>").replace("वर्ष", "df©").replace("प्रार्थना", "àmW©Zm").replace("आशीर्वाद", "Amerd©mX").replace("शुभाशिर्वाद", "ew^m{ed©mX").replace("प्रिय", "{à`")
-                .replace("ज्ञ", "k").replace("पूर्ण", "nyU©").replace("मार्ग", "_mJ©").replace("ऱ्य", "è`").replace("निर्माण", "{Z_©mU").replace("क्ष", "j").replace("सर्व", "gd©").replace("निर्णय", "{ZU©`").replace("कर्तव्य", "H$V©ì`").replace("वर्त", "dV©").replace("ॐ", "›").replace("रु", "é").replace("द्ध", "Õ").replace("द्य", "Ú").replace("द्व", "Û");
+                .replace("ज्ञ", "k").replace("पूर्ण", "nyU©").replace("मार्ग", "_mJ©").replace("ऱ्य", "è`").replace("निर्माण", "{Z_©mU").replace("क्ष", "j").replace("सर्व", "gd©").replace("निर्णय", "{ZU©`").replace("कर्तव्य", "H$V©ì`").replace("वर्त", "dV©").replace("ॐ", "›").replace("रु", "é").replace("द्ध", "Õ").replace("द्य", "Ú").replace("द्व", "Û")
+                .replace("महत्त्व", "_hÎd");
         str2 = "प्र";
         str3 = "à";
         str4 = "फ्र";
