@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#F6621A</color>
+    <color name="blue">#03A9F4</color>
+    <color name="Main_background">#090909</color>
+    <color name="Main_background2">#090909</color>
+    <color name="card_background">#1C1C1C</color>
+    <color name="border_color">#EBECEE</color>
+    <color name="ic_color">#7D858E</color>
+    <color name="text_primary">#50575D</color>
+    <color name="text_secondary">#425365</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="cat1">#E39737</color>
+    <color name="cat2">#755DA0</color>
+    <color name="cat3">#6585E5</color>
+    <color name="cat4">#1F6E58</color>
+    <color name="cat5">#C55F75</color>
+    <color name="cat6">#275CA2</color>
+    <color name="cat7">#BB4030</color>
+</resources>
