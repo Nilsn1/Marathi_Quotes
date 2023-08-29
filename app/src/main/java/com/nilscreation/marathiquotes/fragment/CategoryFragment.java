@@ -26,6 +26,7 @@ public class CategoryFragment extends Fragment {
     RecyclerView recyclerview;
     ArrayList<String> categorylist;
     CategoryAdapter adapter;
+
     public CategoryFragment() {
     }
 

@@ -36,7 +36,7 @@ public class SettingsFragment extends Fragment {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String appUrl = "For daily interesting facts download the app now." + "\nhttps://play.google.com/store/apps/details?id=" + getActivity().getApplicationContext().getPackageName();
+                String appUrl = "दररोज असेच नवनवीन मराठी स्टेटस पाहण्यासाठी आत्ताच ॲप डाऊनलोड करा." + "\nhttps://play.google.com/store/apps/details?id=" + getActivity().getApplicationContext().getPackageName();
 
                 Intent sharing = new Intent(Intent.ACTION_SEND);
                 sharing.setType("text/plain");

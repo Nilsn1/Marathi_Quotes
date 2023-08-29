@@ -189,7 +189,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.MovieHolder>
 
         intent.putExtra(Intent.EXTRA_TEXT, ogText
                 + "\n\n" +
-                "For more interesting facts download the app now." +
+                "दररोज असेच नवनवीन मराठी स्टेटस पाहण्यासाठी आत्ताच ॲप डाऊनलोड करा." +
                 "\nhttps://play.google.com/store/apps/details?id=" + context.getApplicationContext().getPackageName());
 
         intent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");

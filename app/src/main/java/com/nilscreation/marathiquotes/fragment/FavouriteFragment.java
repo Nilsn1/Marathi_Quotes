@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nilscreation.marathiquotes.R;
 import com.nilscreation.marathiquotes.adapter.FavouriteAdapter;
@@ -24,6 +25,8 @@ public class FavouriteFragment extends Fragment {
     RecyclerView recyclerView;
     List<String> quotelist;
 
+    TextView emptyfavourite;
+
     public FavouriteFragment() {
     }
 
@@ -33,6 +36,7 @@ public class FavouriteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_favourite, container, false);
 
+        emptyfavourite = view.findViewById(R.id.emptyfavourite);
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -49,12 +53,16 @@ public class FavouriteFragment extends Fragment {
     private void fetchData() {
         MyDBHelper myDBHelper = new MyDBHelper(getContext());
         quotelist = myDBHelper.readData();
-
-        FavouriteAdapter adapter = new FavouriteAdapter(getContext(), quotelist, getActivity());
+        if (quotelist.isEmpty()) {
+            emptyfavourite.setVisibility(View.VISIBLE);
+        } else {
+            emptyfavourite.setVisibility(View.GONE);
+            FavouriteAdapter adapter = new FavouriteAdapter(getContext(), quotelist, getActivity());
 //                    recyclerView.setAdapter(adapter);
 //            AdmobNativeAdAdapter admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with("ca-app-pub-9137303962163689/3884272678", adapter,
 //                    "small").adItemInterval(3).build();
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
