@@ -28,7 +28,7 @@
                 android:fontFamily="@font/marathi50"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:padding="16dp"
+                android:paddingVertical="18dp"
                 android:shadowColor="#66000000"
                 android:shadowDx="7"
                 android:shadowDy="7"
