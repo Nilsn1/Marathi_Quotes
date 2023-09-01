@@ -42,7 +42,7 @@ public class FirebaseMsgService extends FirebaseMessagingService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notification = new Notification.Builder(this)
                     .setLargeIcon(Icon.createWithContentUri(imageUrl))
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.quote)
                     .setAutoCancel(true)
                     .setContentTitle(title)
                     .setContentText("Text Here")
@@ -57,7 +57,7 @@ public class FirebaseMsgService extends FirebaseMessagingService {
         } else {
             notification = new Notification.Builder(this)
                     .setLargeIcon(Icon.createWithContentUri(imageUrl))
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.quote)
                     .setAutoCancel(true)
                     .setContentTitle(title)
                     .setContentText("Text Here")
