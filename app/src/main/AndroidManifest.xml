@@ -38,9 +38,9 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/quote" />
 
-        <!--        <meta-data-->
-        <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-        <!--            android:value="ca-app-pub-3940256099942544~3347511713" />-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9137303962163689~1483411638" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
